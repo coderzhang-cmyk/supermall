@@ -8,7 +8,7 @@ export function getHomeMultidata() {
 
 export function getHomeGoods(type, page) {
  return request152({
-    url: '/api/w6/home/data',
+    url: '/api/v1/home/data',
     method: 'get',
     params: {
       type,
