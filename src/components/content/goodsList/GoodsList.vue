@@ -37,11 +37,10 @@ export default {
 .v-enter,
 .v-leave-to {
   opacity: 0;
-  transform: translateY(100px);
 }
 .v-enter-active,
 .v-leave-active {
-  transition: all 2s ease;
+  transition: all 3s ease;
 }
 .v-move {
   opacity: 0;

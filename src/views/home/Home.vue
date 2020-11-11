@@ -42,7 +42,7 @@ import NavBar from "components/common/navbar/NavBar";
 import Scroll from "components/common/betterScroll/Scroll";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goodsList/GoodsList";
-import BackTop from "components/content/backTop/BackTop";
+
 
 import HomeSwiper from "./childComps/HomeSwiper";
 import HomeRecommends from "./childComps/HomeRecommends";
@@ -50,7 +50,7 @@ import HomeFeatureView from "./childComps/HomeFeatureView";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
-import { debounce } from "common/utils.js";
+import { refreshMixin, backTopMixin } from "common/mixin";
 export default {
   data() {
     return {
@@ -62,30 +62,27 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentSort: "pop",
-      isShow: false,
       isStay: false,
       tabOffseTop: 0,
       scrollY: 0,
+      cancelFunction: null,
     };
   },
+  mixins: [refreshMixin, backTopMixin],
   created() {
     this.getHomeMultidata();
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  mounted() {
-    let refrsh = debounce(this.$refs.scroll.refresh, 200);
-    this.$bus.$on("handleGoodsImg", () => {
-      refrsh();
-    });
-  },
+  mounted() {},
   activated() {
-    this.$refs.scroll.scrollTo(0, this.scrollY, 0);
     this.$refs.scroll.refresh();
+    this.$refs.scroll.scrollTo(0, this.scrollY, 0);
   },
   deactivated() {
     this.scrollY = this.$refs.scroll.scroll.y;
+    this.$bus.$off("handleGoodsImg", this.cancelFunction);
   },
   methods: {
     // 普通方法
@@ -106,9 +103,6 @@ export default {
 
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
-    },
-    handleBackTop() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
     },
     scroll(position) {
       this.isShow = position.y < -1000;
@@ -142,7 +136,6 @@ export default {
     Scroll,
     TabControl,
     GoodsList,
-    BackTop,
     HomeSwiper,
     HomeRecommends,
     HomeFeatureView,

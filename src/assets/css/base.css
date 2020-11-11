@@ -54,4 +54,6 @@ a {
 .right {
   float: right;
 }
-
+table {
+  border-collapse: collapse;
+}

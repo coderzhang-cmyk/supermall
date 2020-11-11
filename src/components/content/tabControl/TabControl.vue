@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     handleTabControlBtn(index) {
-      console.log('11');
       this.currentIndex = index
       this.$emit('handleTabControlBtn', index)
     }
