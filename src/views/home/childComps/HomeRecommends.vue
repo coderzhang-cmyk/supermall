@@ -1,6 +1,10 @@
 <template>
   <div class="home-recommends">
-    <div class="home-recommends-items" v-for="item in recommends" :key="item.title">
+    <div
+      class="home-recommends-items"
+      v-for="item in recommends"
+      :key="item.title"
+    >
       <a :href="item.link">
         <img :src="item.image" alt="" />
         <span>
@@ -17,10 +21,10 @@ export default {
     recommends: {
       type: Array,
       default() {
-        return []
-      }
-    }
-  }
+        return [];
+      },
+    },
+  },
 };
 </script>
 

@@ -1,72 +1,69 @@
 <template>
-<div>
-  <h2>
-    我是分类
-  </h2>
-  <div class="wrapper">
-    <ul class="content">
-      <button @click="hahaha">haha</button>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-    </ul>
+  <div class="categroy">
+    <categroy-nav-bar />
+    <div class="categroy-main">
+      <categroy-titles :titles="titles" />
+      <scroll class="content">
+        <categroy-list />
+      </scroll>
+    </div>
   </div>
-  </div> 
 </template>
 
 <script>
+import Scroll from "components/common/betterScroll/Scroll";
 
-import BScroll from 'better-scroll'
+import CategroyNavBar from "./childComps/CategroyNavBar";
+import CategroyTitles from "./childComps/CategroyTitles";
+import CategroyList from "./childComps/CategroyList";
+
+import { getCategroyTitles, getSubcategory } from "network/categroy";
+
 export default {
   data() {
     return {
-      scroll: null
-    }
+      titles: [],
+      maitKey: 0,
+    };
   },
-  mounted() {
-  this.scroll =  new BScroll('.wrapper', {
-    probeType: 3,
-    click: true,
-    pullUpLoad: true
-    })
-     this.scroll.on('scroll', (position) => {
-      //  console.log(position);
-    })
-    this.scroll.on('pullingUp', () => {
-      console.log('q');
-      this.scroll.finishPullUp()
-    })
+  components: {
+    Scroll,
+    CategroyNavBar,
+    CategroyTitles,
+    CategroyList,
+  },
+  created() {
+    this.getCategroyTitles();
   },
   methods: {
-   hahaha() {
-     console.log('wq');
-   }
+    getCategroyTitles() {
+      getCategroyTitles().then((res) => {
+        let category = res.data.category;
+        console.log(category);
+        this.titles = category.list;
+        this.getSubcategory(this.titles[0].maitKey);
+      });
+    },
+    getSubcategory(maitKey) {
+      getSubcategory(maitKey).then((res) => {
+        console.log(res);
+      });
+    },
   },
-}
+};
 </script>
 
 <style scoped>
-.wrapper {
-  height: 150px;
-  background-color: yellowgreen;
+.categroy {
+  height: 100vh;
+  overflow: hidden;
+}
+.categroy-main {
+  display: flex;
+  height: 100%;
+}
+.content {
+  height: calc(100% - 44px - 49px);
+  overflow: hidden;
 }
 </style>

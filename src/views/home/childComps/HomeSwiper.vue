@@ -9,36 +9,35 @@
 </template>
 
 <script>
-import { Swiper, SwiperItem } from 'components/common/swiper'
+import { Swiper, SwiperItem } from "components/common/swiper";
 export default {
   props: {
     banners: {
       type: Array,
       default() {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   data() {
     return {
-      isLoad: false
-    }
+      isLoad: false,
+    };
   },
   components: {
     Swiper,
-    SwiperItem
+    SwiperItem,
   },
   methods: {
     handleSwiperImg() {
       if (!this.isLoad) {
-          this.$emit('handleSwiperImg')  
-          this.isLoad = true  
+        this.$emit("handleSwiperImg");
+        this.isLoad = true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 </style>

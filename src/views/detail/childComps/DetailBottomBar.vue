@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="tab-right">
-      <div class="join-cart">
+      <div class="join-cart" @click="handleAddCart">
         <span>加入购物车</span>
       </div>
       <div class="buy">
@@ -26,12 +26,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    handleAddCart() {
+      this.$emit("handleAddCart");
+    },
+  },
+};
 </script>
 
 <style scoped>
 .detail-bottom-bar {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;

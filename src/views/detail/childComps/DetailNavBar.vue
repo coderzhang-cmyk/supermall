@@ -4,10 +4,13 @@
       <div class="detail-nav-bar-left-div"></div>
     </div>
     <div slot="center" class="detail-nav-bar-center">
-      <div v-for="(item, index) in titles" 
-           :key="item" class="nav-bar-item"
-           :class="{active: currentIndex === index}"
-           @click="handleSkipTitle(index)">
+      <div
+        v-for="(item, index) in titles"
+        :key="item"
+        class="nav-bar-item"
+        :class="{ active: currentIndex === index }"
+        @click="handleSkipTitle(index)"
+      >
         {{ item }}
       </div>
     </div>
@@ -20,34 +23,33 @@ import NavBar from "components/common/navbar/NavBar";
 export default {
   data() {
     return {
-      currentIndex: 0
-    }
+      currentIndex: 0,
+    };
   },
   props: {
     titles: {
       type: Array,
       default() {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   components: {
     NavBar,
   },
   methods: {
     handleBackHome() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     handleSkipTitle(index) {
-      this.currentIndex = index
-      this.$emit('handleSkipTitle', index)
-    }
+      this.currentIndex = index;
+      this.$emit("handleSkipTitle", index);
+    },
   },
 };
 </script>
 
 <style scoped>
-
 .detail-nav-bar-left {
   position: relative;
   height: 100%;
@@ -74,6 +76,6 @@ export default {
   flex-grow: 1;
 }
 .active {
-  color: var( --color-high-text);
+  color: var(--color-high-text);
 }
 </style>

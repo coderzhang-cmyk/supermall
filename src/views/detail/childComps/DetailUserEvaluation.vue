@@ -7,14 +7,14 @@
     </div>
     <div class="user-evaluation-info">
       <div class="user-evaluation-info-img" v-if="userEvaluation.user">
-        <img :src="userEvaluation.user.avatar" alt=""/>
+        <img :src="userEvaluation.user.avatar" alt="" />
         <span>{{ userEvaluation.user.uname }}</span>
       </div>
       <div class="user-evaluation-info-content">
         <p>{{ userEvaluation.content }}</p>
       </div>
       <div class="user-evaluation-info-time">
-        <span>{{ userEvaluation.created | formatTime}}</span>
+        <span>{{ userEvaluation.created | formatTime }}</span>
         <span>{{ userEvaluation.style }}</span>
       </div>
     </div>
@@ -33,10 +33,10 @@ export default {
   },
   filters: {
     formatTime(time) {
-      const date = new Date(time * 1000)
-      return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`
-    }
-  }
+      const date = new Date(time * 1000);
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    },
+  },
 };
 </script>
 

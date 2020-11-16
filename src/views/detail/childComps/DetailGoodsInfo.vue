@@ -18,9 +18,14 @@
         {{ goodsInfo.detailImage[0].key }}
       </p>
       <div v-for="item in goodsInfo.detailImage[0].list">
-        <img :src="item" alt="" class="dress-effect-img" @load="handleDressEffectImg">
+        <img
+          :src="item"
+          alt=""
+          class="dress-effect-img"
+          @load="handleDressEffectImg"
+        />
       </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -34,11 +39,11 @@ export default {
       },
     },
   },
-      methods: {
-      handleDressEffectImg() {
-        this.$emit('handleDressEffectImg')
-      }
+  methods: {
+    handleDressEffectImg() {
+      this.$emit("handleDressEffectImg");
     },
+  },
 };
 </script>
 

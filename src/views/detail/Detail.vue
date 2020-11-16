@@ -24,7 +24,7 @@
     <transition>
       <back-top @click.native="handleBackTop" v-show="isShow"></back-top>
     </transition>
-    <detail-bottom-bar />
+    <detail-bottom-bar @handleAddCart="handleAddCart" />
   </div>
 </template>
 
@@ -39,12 +39,15 @@ import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
 import DetailParamsInfo from "./childComps/DetailParamsInfo";
 import DetailUserEvaluation from "./childComps/DetailUserEvaluation";
 import DetailRecommendInfo from "./childComps/DetailRecommendInfo";
-import DetailBottomBar from './childComps/DetailBottomBar'
+import DetailBottomBar from "./childComps/DetailBottomBar";
 
 import { getDetail, getRecommend, GoodsInfo, ShopInfo } from "network/detail";
 
 import { debounce } from "common/utils";
 import { refreshMixin, backTopMixin } from "common/mixin";
+
+import { mapActions } from "vuex";
+
 export default {
   name: "Detail",
   data() {
@@ -63,6 +66,8 @@ export default {
       JumpToSpecifiedLocation: null,
       scrollY: 0,
       currentIndex: 0,
+      message: "",
+      show: false,
     };
   },
   components: {
@@ -77,6 +82,7 @@ export default {
     DetailBottomBar,
     Scroll,
   },
+  computed: {},
   mixins: [refreshMixin, backTopMixin],
   created() {
     this.currentIid = this.$route.params.iid;
@@ -88,18 +94,19 @@ export default {
       this.positionY.push(this.$refs.params.$el.offsetTop);
       this.positionY.push(this.$refs.userEvaluation.$el.offsetTop);
       this.positionY.push(this.$refs.recommend.$el.offsetTop);
-      console.log(this.positionY);
     });
   },
   mounted() {
     // 这里拿不到的原因在于给模板设置了必须得数据里面有值并且已经成功传递过去的时候才会渲染dom,很有可能数据还没有
     //中还没有值,所以模板还没有渲染
   },
-  updated() {},
   destroyed() {
     this.$bus.$off("handleGoodsImg", this.cancelFunction);
   },
   methods: {
+    ...mapActions({
+      handleAddCartActions: "handleAddCart",
+    }),
     getDetail(iid) {
       getDetail(iid).then((res) => {
         const data = res.result;
@@ -133,18 +140,29 @@ export default {
       //  9000-     3
       for (const key in this.positionY) {
         let index = Number(key);
-        if ( this.currentIndex !== index &&
-         ( (index < this.positionY.length - 1 &&
+        if (
+          this.currentIndex !== index &&
+          ((index < this.positionY.length - 1 &&
             this.scrollY >= this.positionY[index] &&
             this.scrollY < this.positionY[index + 1]) ||
-          (index === this.positionY.length - 1 &&
-            this.scrollY >= this.positionY[index]))
+            (index === this.positionY.length - 1 &&
+              this.scrollY >= this.positionY[index]))
         ) {
           this.currentIndex = index;
-          this.$refs.nav.currentIndex = this.currentIndex
-          console.log(index);
+          this.$refs.nav.currentIndex = this.currentIndex;
         }
       }
+    },
+    handleAddCart() {
+      let commodityInformation = {};
+      commodityInformation.iid = this.currentIid;
+      commodityInformation.img = this.topImages[0];
+      commodityInformation.price = this.goods.oldPrice;
+      commodityInformation.desc = this.goodsInfo.desc;
+      commodityInformation.title = this.goods.title;
+      this.handleAddCartActions(commodityInformation).then((res) => {
+        this.$toast.show(res, 2000)
+      });
     },
   },
 };
@@ -154,6 +172,7 @@ export default {
 .detail {
   position: relative;
   height: 100vh;
+  overflow: hidden;
 }
 .detail-nav-bar {
   position: relative;

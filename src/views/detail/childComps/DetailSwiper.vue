@@ -1,27 +1,27 @@
 <template>
   <swiper>
     <swiper-item v-for="item in topImages" :key="item" class="detail-swiper">
-      <img :src="item" alt="" >
+      <img :src="item" alt="" />
     </swiper-item>
   </swiper>
 </template>
 
 <script>
-import { Swiper, SwiperItem } from 'components/common/swiper'
+import { Swiper, SwiperItem } from "components/common/swiper";
 export default {
   components: {
     Swiper,
-    SwiperItem
+    SwiperItem,
   },
   props: {
     topImages: {
       type: Array,
       default() {
-        return []
-      }
-    }
-  }
-}
+        return [];
+      },
+    },
+  },
+};
 </script>
 
 <style scoped>

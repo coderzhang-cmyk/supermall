@@ -1,17 +1,26 @@
 <template>
-<div>
-  <h2>
-    我是购物车
-  </h2>
-  </div> 
+  <div class="cart">
+    <cart-nav-bar />
+    <cart-list />
+    <cart-bottm-bar />
+  </div>
 </template>
 
 <script>
+import CartNavBar from "./childComps/CartNavBar";
+import CartList from "./childComps/CartList";
+import CartBottmBar from "./childComps/CartBottomBar";
 export default {
-
-}
+  components: {
+    CartNavBar,
+    CartList,
+    CartBottmBar,
+  },
+};
 </script>
 
-<style>
-
+<style scoped>
+.cart {
+  height: 100vh;
+}
 </style>
