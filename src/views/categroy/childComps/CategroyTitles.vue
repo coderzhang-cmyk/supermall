@@ -6,7 +6,7 @@
         :key="index"
         class="title"
         :class="{ active: currentIndex === index}"
-        @click="handleCategroyTitle(index)"
+        @click="handleCategroyTitle(index, item.maitKey, item.miniWallkey)"
       >
         {{ item.title }}
       </li>
@@ -35,8 +35,9 @@ export default {
     Scroll
   },
   methods: {
-    handleCategroyTitle(index) {
+    handleCategroyTitle(index, maitKey, miniWallkey) {
       this.currentIndex = index;
+      this.$emit('handleCategroyTitle', maitKey, miniWallkey)
     },
   },
 };

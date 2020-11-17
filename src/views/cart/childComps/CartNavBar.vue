@@ -21,7 +21,7 @@ export default {
 
 <style scoped>
 .cart-nav-bar {
-  background-color: var(--color-high-text);
+  background-color: var(--color-tint);
   color: #ffffff;
 }
 </style>

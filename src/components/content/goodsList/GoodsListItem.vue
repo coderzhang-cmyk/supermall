@@ -13,7 +13,7 @@
 export default {
   computed: {
     selectImage() {
-      return  this.goodsListItem.image || this.goodsListItem.show.img
+      return  this.goodsListItem.img || this.goodsListItem.image || this.goodsListItem.show.img
     }
   },
   props: {

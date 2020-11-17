@@ -1,17 +1,27 @@
 <template>
-<div>
-  <h2>
-    我是我的
-  </h2>
-  </div> 
+  <div class="profile">
+    <profile-nav-bar />
+    <profile-personal />
+    <profile-order-list />
+    <profile-service-list />
+  </div>
 </template>
 
 <script>
-export default {
+import ProfileNavBar from "./childComps/ProfileNavBar";
+import ProfilePersonal from './childComps/ProfilePersonal'
+import ProfileOrderList from './childComps/ProfileOrderList'
+import ProfileServiceList from './childComps/ProfileServiceList'
 
-}
+export default {
+  components: {
+    ProfileNavBar,
+    ProfilePersonal,
+    ProfileOrderList,
+    ProfileServiceList
+  },
+};
 </script>
 
-<style>
-
+<style scoped>
 </style>

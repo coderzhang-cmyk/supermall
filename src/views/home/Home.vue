@@ -151,7 +151,7 @@ export default {
   left: 0;
   right: 0;
   width: 100%;
-  background-color: var(--color-high-text);
+  background-color: var(--color-tint);
   color: #ffffff;
   z-index: 1;
 }
