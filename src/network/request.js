@@ -20,7 +20,7 @@ export function request123(config) {
 
 export function request152(config) {
   const instance152 = axios.create({
-    baseURL: 'http://152.136.185.210:8000'
+    baseURL: 'http://152.139.185.210:8000'
   })
   instance152.interceptors.request.use((config) => {
     return config
