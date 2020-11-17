@@ -3,13 +3,13 @@ import { request152 } from './request'
 
 export function getCategroyTitles() {
   return request152({
-    url: '/api/w6/category'
+    url: '/api/q2/category'
   })
 }
 
 export function getSubcategory(maitKey) {
   return request152({
-    url: '/api/w6/subcategory',
+    url: '/api/q2/subcategory',
     params: {
       maitKey
     }
@@ -18,7 +18,7 @@ export function getSubcategory(maitKey) {
 
 export function getCategoryDetail(miniWallkey, type) {
   return request152({
-    url: '/api/w6/subcategory/detail',
+    url: '/api/q2/subcategory/detail',
     params: {
       miniWallkey,
       type
